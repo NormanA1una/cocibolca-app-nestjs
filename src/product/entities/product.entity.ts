@@ -13,10 +13,10 @@ export class Product {
   title: string;
 
   @Column()
-  image: string;
+  presentation: string;
 
   @Column()
-  presentation: string;
+  image: string;
 
   @Column({ type: 'enum', enum: EnumStatus, default: EnumStatus.pedido })
   order_status: EnumStatus;

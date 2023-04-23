@@ -1,2 +1,21 @@
 ### 
-GET http://localhost:3000/cats
+POST http://localhost:3000/supplier
+Content-Type: application/json
+
+{
+    "name": "Supplier_3",
+    "description": "Supplier_description_3",
+    "image": "link"
+}
+
+###
+POST http://localhost:3000/product
+Content-Type: application/json
+
+{
+    "supplier_id": "1",
+    "title": "Product_3",
+    "presentation": "Product_presentation_3",
+    "image": "link"
+
+}

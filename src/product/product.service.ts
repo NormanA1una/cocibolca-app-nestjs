@@ -22,15 +22,21 @@ export class ProductService {
     });
   }
 
-  findOne(id: number) {
-    return; //TODO;
+  async findOne(id: number) {
+    const product = await this.productRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    return;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    return this.productRepository.update(id, updateProductDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} product`;
+    return this.productRepository.delete(id);
   }
 }
