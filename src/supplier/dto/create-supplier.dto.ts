@@ -5,8 +5,5 @@ export class CreateSupplierDto {
   name: string;
 
   @IsString()
-  description: string;
-
-  @IsString()
   image: string;
 }

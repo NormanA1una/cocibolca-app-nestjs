@@ -9,9 +9,6 @@ export class Supplier {
   name: string;
 
   @Column()
-  description: string;
-
-  @Column()
   image: string;
 
   @Column({ type: 'boolean', default: true })
