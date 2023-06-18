@@ -1,9 +1,15 @@
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 export class CreateSupplierDto {
   @IsString()
-  name: string;
+  nombreProveedor: string;
 
   @IsString()
-  image: string;
+  tipoDeProducto: string;
+
+  @IsBoolean()
+  estado: boolean;
+
+  @IsString()
+  logo: string;
 }

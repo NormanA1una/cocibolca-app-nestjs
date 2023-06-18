@@ -6,7 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { ConfigService, ConfigModule } from '@nestjs/config/dist';
-import { ProductModule } from './product/product.module';
 import 'reflect-metadata';
 
 @Module({
@@ -18,7 +17,6 @@ import 'reflect-metadata';
     }),
     TypeOrmModule.forRootAsync(typeOrmConfig),
     SupplierModule,
-    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],

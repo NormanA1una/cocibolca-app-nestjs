@@ -27,7 +27,6 @@ export class SupplierService {
   async findOne(id: number) {
     const supplier = await this.supplierRepository.findOne({
       where: {
-        status: true,
         id: id,
       },
     });

@@ -6,13 +6,14 @@ export class Supplier {
   id: number;
 
   @Column()
-  name: string;
+  nombreProveedor: string;
 
   @Column()
-  image: string;
+  tipoDeProducto: string;
 
   @Column({ type: 'boolean', default: true })
-  status: boolean;
-}
+  estado: boolean;
 
-//TODO, terminar de hacer la entidad.
+  @Column({ type: 'varchar', default: '' })
+  logo: string;
+}
