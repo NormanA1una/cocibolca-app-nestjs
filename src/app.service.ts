@@ -6,7 +6,7 @@ export class AppService {
     return 'Hello World!';
   }
 
-  getCatsMessage(): string {
-    return 'Esta es la ruta de los gatos!';
+  uploadImage() {
+    return 'Esta funcionando!';
   }
 }
