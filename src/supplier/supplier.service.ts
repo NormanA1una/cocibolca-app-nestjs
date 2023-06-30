@@ -21,6 +21,9 @@ export class SupplierService {
       order: {
         id: 'DESC',
       },
+
+      /* take: 2,
+      skip: 2, */
     });
   }
 

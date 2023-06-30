@@ -7,6 +7,7 @@ import { DataSource } from 'typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { ConfigService, ConfigModule } from '@nestjs/config/dist';
 import { MulterModule } from '@nestjs/platform-express/multer';
+import { ProductSupplierModule } from './product-supplier/product-supplier.module';
 import 'reflect-metadata';
 
 @Module({
@@ -18,6 +19,7 @@ import 'reflect-metadata';
     }),
     TypeOrmModule.forRootAsync(typeOrmConfig),
     MulterModule,
+    ProductSupplierModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -54,4 +54,40 @@ export class AppController {
 
     return { message: 'Archivo Eliminado' };
   }
+
+  @Post('/productFile')
+  @UseInterceptors(
+    FileInterceptor('productFile', {
+      storage: diskStorage({
+        destination: 'C:\\Users\\norma\\img-providers\\productsImg',
+        filename: (req, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+
+          const ext = extname(file.originalname);
+          const filename = `${uniqueSuffix}${ext}`;
+
+          callback(null, filename);
+        },
+      }),
+    }),
+  )
+  uploadProductImg(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    console.log('File', file.path);
+
+    return file;
+  }
+
+  @Delete('/productFile/:fileName')
+  async deleteProductPicture(@Param('fileName') fileName: string) {
+    await fs.unlink(
+      `C:\\Users\\norma\\img-providers\\productsImg/${fileName}`,
+      (res) => {
+        console.log(res);
+      },
+    );
+
+    return { message: 'Archivo Eliminado' };
+  }
 }
