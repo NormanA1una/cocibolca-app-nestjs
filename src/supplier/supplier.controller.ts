@@ -29,7 +29,7 @@ export class SupplierController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    console.log(id);
+    console.log('Id', id);
 
     return this.supplierService.findOne(+id);
   }
@@ -39,7 +39,7 @@ export class SupplierController {
     @Param('id') id: string,
     @Body() updateSupplierDto: UpdateSupplierDto,
   ) {
-    console.log(id);
+    console.log('id update', id);
     console.log(updateSupplierDto);
     return this.supplierService.update(+id, updateSupplierDto);
   }
