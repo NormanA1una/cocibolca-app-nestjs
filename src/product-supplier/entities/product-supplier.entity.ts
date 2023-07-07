@@ -28,6 +28,6 @@ export class ProductSupplier {
   @CreateDateColumn()
   fechaDeInventario: Date;
 
-  @Column()
+  @Column({ type: 'varchar', default: '' })
   nombreSupplier: string;
 }

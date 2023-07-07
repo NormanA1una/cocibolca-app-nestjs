@@ -8,6 +8,7 @@ import { typeOrmConfig } from './config/typeorm.config';
 import { ConfigService, ConfigModule } from '@nestjs/config/dist';
 import { MulterModule } from '@nestjs/platform-express/multer';
 import { ProductSupplierModule } from './product-supplier/product-supplier.module';
+import { DeleteFilesService } from './services/delete-files/delete-files.service';
 import 'reflect-metadata';
 
 @Module({
@@ -22,7 +23,7 @@ import 'reflect-metadata';
     ProductSupplierModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, DeleteFilesService],
 })
 export class AppModule {
   constructor(

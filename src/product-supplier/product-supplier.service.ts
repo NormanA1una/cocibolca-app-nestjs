@@ -4,13 +4,18 @@ import { UpdateProductSupplierDto } from './dto/update-product-supplier.dto';
 import { ProductSupplier } from './entities/product-supplier.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AppDataSource } from 'src/app-data-source';
+import { DeleteFilesService } from 'src/services/delete-files/delete-files.service';
 
 @Injectable()
 export class ProductSupplierService {
   constructor(
     @InjectRepository(ProductSupplier)
     private productSuplierRepository: Repository<ProductSupplier>,
+    private deleteFileService: DeleteFilesService,
   ) {}
+
+  dataSource = AppDataSource;
 
   create(createProductSupplierDto: CreateProductSupplierDto) {
     return this.productSuplierRepository.save(createProductSupplierDto);
@@ -42,7 +47,28 @@ export class ProductSupplierService {
     return this.productSuplierRepository.update(id, updateProductSupplierDto);
   }
 
-  remove(id: number) {
-    return this.productSuplierRepository.delete(id);
+  async remove(id: number) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.startTransaction();
+
+    try {
+      const product = await queryRunner.manager.findOne(ProductSupplier, {
+        where: {
+          id: id,
+        },
+      });
+
+      await queryRunner.manager.delete(ProductSupplier, id);
+      await this.deleteFileService.deleteProductImg(product.presentacion);
+
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+
+    // return this.productSuplierRepository.delete(id);
   }
 }

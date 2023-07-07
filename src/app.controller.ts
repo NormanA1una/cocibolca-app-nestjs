@@ -11,16 +11,11 @@ import { AppService } from './app.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import * as fs from 'fs';
+import { DeleteFilesService } from './services/delete-files/delete-files.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  constructor(private readonly deleteFileService: DeleteFilesService) {}
 
   @Post('/file')
   @UseInterceptors(
@@ -48,11 +43,7 @@ export class AppController {
 
   @Delete('/file/:fileName')
   async deletePicture(@Param('fileName') fileName: string) {
-    await fs.unlink(`C:\\Users\\norma\\img-providers/${fileName}`, (res) => {
-      console.log(res);
-    });
-
-    return { message: 'Archivo Eliminado' };
+    await this.deleteFileService.deleteFile(fileName);
   }
 
   @Post('/productFile')
@@ -81,12 +72,7 @@ export class AppController {
 
   @Delete('/productFile/:fileName')
   async deleteProductPicture(@Param('fileName') fileName: string) {
-    await fs.unlink(
-      `C:\\Users\\norma\\img-providers\\productsImg/${fileName}`,
-      (res) => {
-        console.log(res);
-      },
-    );
+    await this.deleteFileService.deleteProductImg(fileName);
 
     return { message: 'Archivo Eliminado' };
   }
