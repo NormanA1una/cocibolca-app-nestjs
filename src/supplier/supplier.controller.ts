@@ -6,14 +6,10 @@ import {
   Param,
   Delete,
   Put,
-  UseInterceptors,
-  UploadedFile,
 } from '@nestjs/common';
 import { SupplierService } from './supplier.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
-import { AppDataSource } from 'src/app-data-source';
-import { Supplier } from './entities/supplier.entity';
 
 @Controller('supplier')
 export class SupplierController {

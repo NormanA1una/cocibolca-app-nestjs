@@ -9,6 +9,8 @@ import { ConfigService, ConfigModule } from '@nestjs/config/dist';
 import { MulterModule } from '@nestjs/platform-express/multer';
 import { ProductSupplierModule } from './product-supplier/product-supplier.module';
 import { DeleteFilesService } from './services/delete-files/delete-files.service';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 import 'reflect-metadata';
 
 @Module({
@@ -21,6 +23,8 @@ import 'reflect-metadata';
     TypeOrmModule.forRootAsync(typeOrmConfig),
     MulterModule,
     ProductSupplierModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, DeleteFilesService],
