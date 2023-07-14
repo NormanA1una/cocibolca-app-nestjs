@@ -27,10 +27,10 @@ export class UserService {
     });
   }
 
-  async findOne(correo: string) {
+  async findOne(username: string) {
     const user = await this.userRespository.findOne({
       where: {
-        correo: correo,
+        username: username,
       },
     });
 

@@ -19,14 +19,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() signInDto: CreateUserDto) {
-    console.log(signInDto);
-
-    return this.authService.signIn(signInDto.correo, signInDto.password);
-  }
-
-  @UseGuards(AuthGuard)
-  @Get('profileEx')
-  getProfile(@Request() req) {
-    return req.user;
+    return this.authService.signIn(signInDto.username, signInDto.password);
   }
 }

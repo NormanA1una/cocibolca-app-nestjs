@@ -9,7 +9,7 @@ export class User {
   correo: string;
 
   @Column({ type: 'varchar', default: '' })
-  nombreYApellidos: string;
+  username: string;
 
   @Column()
   password: string;
