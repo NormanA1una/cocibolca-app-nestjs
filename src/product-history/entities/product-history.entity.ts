@@ -5,10 +5,13 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('productSupplier')
-export class ProductSupplier {
+@Entity('productHistory')
+export class ProductHistory {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  product_id: number;
 
   @Column()
   nombreProducto: string;
@@ -18,9 +21,6 @@ export class ProductSupplier {
 
   @Column()
   cantidadContada: number;
-
-  @Column({ type: 'varchar', default: '' })
-  presentacion: string;
 
   @CreateDateColumn()
   fechaDeInventario: Date;

@@ -16,6 +16,7 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     const salt = await bcrypt.genSalt();
     createUserDto.password = await bcrypt.hash(createUserDto.password, salt);
+
     return this.userRespository.save(createUserDto);
   }
 
@@ -38,8 +39,6 @@ export class UserService {
       throw new NotFoundException('El Usuario no existe.');
     }
 
-    console.log('User User.service', user);
-
     return user;
   }
 
@@ -48,6 +47,6 @@ export class UserService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.userRespository.delete(id);
   }
 }

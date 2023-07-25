@@ -12,6 +12,10 @@ import { DeleteFilesService } from './services/delete-files/delete-files.service
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import 'reflect-metadata';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './auth/roles-guard.guard';
+import { AuthGuard } from './auth/auth-guard.guard';
+import { ProductHistoryModule } from './product-history/product-history.module';
 
 @Module({
   imports: [
@@ -25,9 +29,21 @@ import 'reflect-metadata';
     ProductSupplierModule,
     AuthModule,
     UserModule,
+    ProductHistoryModule,
   ],
   controllers: [AppController],
-  providers: [AppService, DeleteFilesService],
+  providers: [
+    AppService,
+    DeleteFilesService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {
   constructor(

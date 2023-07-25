@@ -1,0 +1,21 @@
+import { IsDate, IsNumber, IsString } from 'class-validator';
+
+export class CreateProductHistoryDto {
+  @IsNumber()
+  product_id: number;
+
+  @IsString()
+  nombreProducto: string;
+
+  @IsNumber()
+  cantidadAMano: number;
+
+  @IsNumber()
+  cantidadContada: number;
+
+  @IsDate()
+  fechaDeInventario: Date;
+
+  @IsString()
+  nombreSupplier: string;
+}

@@ -27,8 +27,6 @@ export class SupplierController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    console.log('Id', id);
-
     return this.supplierService.findOne(+id);
   }
 

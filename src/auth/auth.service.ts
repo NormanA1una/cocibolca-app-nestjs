@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
@@ -21,7 +25,11 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const payload = { sub: user.id, username: user.username };
+    const payload = {
+      sub: user.id,
+      username: user.username,
+      rol: [user.roles],
+    };
 
     console.log(user);
 
@@ -29,5 +37,9 @@ export class AuthService {
       username: username,
       access_token: await this.jwtService.signAsync(payload),
     };
+  }
+
+  getProfile() {
+    return 'Esto retornaria los perfiles';
   }
 }
