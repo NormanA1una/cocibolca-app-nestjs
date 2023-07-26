@@ -6,6 +6,9 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AppDataSource } from 'src/app-data-source';
 import { DeleteFilesService } from 'src/services/delete-files/delete-files.service';
+import { ProductHistoryService } from 'src/product-history/product-history.service';
+import { ProductHistory } from 'src/product-history/entities/product-history.entity';
+import { CreateProductHistoryDto } from 'src/product-history/dto/create-product-history.dto';
 
 @Injectable()
 export class ProductSupplierService {
@@ -13,6 +16,7 @@ export class ProductSupplierService {
     @InjectRepository(ProductSupplier)
     private productSuplierRepository: Repository<ProductSupplier>,
     private deleteFileService: DeleteFilesService,
+    private productHistoryService: ProductHistoryService,
   ) {}
 
   dataSource = AppDataSource;
@@ -43,8 +47,33 @@ export class ProductSupplierService {
     return productSupplier;
   }
 
-  update(id: number, updateProductSupplierDto: UpdateProductSupplierDto) {
-    return this.productSuplierRepository.update(id, updateProductSupplierDto);
+  async update(id: number, updateProductSupplierDto: UpdateProductSupplierDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.startTransaction();
+
+    try {
+      const product = await queryRunner.manager.findOne(ProductSupplier, {
+        where: {
+          id: id,
+        },
+      });
+
+      await this.addProductToHistory(product);
+
+      await queryRunner.manager.update(
+        ProductSupplier,
+        id,
+        updateProductSupplierDto,
+      );
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+
+    // return this.productSuplierRepository.update(id, updateProductSupplierDto);
   }
 
   async remove(id: number) {
@@ -70,5 +99,16 @@ export class ProductSupplierService {
     }
 
     // return this.productSuplierRepository.delete(id);
+  }
+
+  private addProductToHistory(product: ProductSupplier) {
+    const productHistory = new ProductHistory();
+    productHistory.product_id = product.id;
+    productHistory.nombreProducto = product.nombreProducto;
+    productHistory.cantidadAMano = product.cantidadAMano;
+    productHistory.cantidadContada = product.cantidadContada;
+    productHistory.fechaDeInventario = product.fechaDeInventario;
+    productHistory.nombreSupplier = product.nombreSupplier;
+    return this.productHistoryService.insert(productHistory);
   }
 }

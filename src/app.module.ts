@@ -27,9 +27,9 @@ import { ProductHistoryModule } from './product-history/product-history.module';
     TypeOrmModule.forRootAsync(typeOrmConfig),
     MulterModule,
     ProductSupplierModule,
+    ProductHistoryModule,
     AuthModule,
     UserModule,
-    ProductHistoryModule,
   ],
   controllers: [AppController],
   providers: [

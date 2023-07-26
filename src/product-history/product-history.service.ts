@@ -16,10 +16,22 @@ export class ProductHistoryService {
     return this.productHistoryRespository.save(createProductHistoryDto);
   }
 
-  findAll() {
+  insert(product: ProductHistory) {
+    console.log(product);
+
+    return this.productHistoryRespository.insert(product);
+  }
+
+  findAll(product_id: number) {
     return this.productHistoryRespository.find({
+      where: {
+        product_id: product_id,
+      },
       order: {
         id: 'DESC',
+      },
+      relations: {
+        productSupplier: true,
       },
     });
   }
@@ -42,7 +54,9 @@ export class ProductHistoryService {
     return this.productHistoryRespository.update(id, updateProductHistoryDto);
   }
 
-  remove(id: number) {
-    return this.productHistoryRespository.delete(id);
+  remove(product_id: number) {
+    return this.productHistoryRespository.delete({
+      product_id: product_id,
+    });
   }
 }

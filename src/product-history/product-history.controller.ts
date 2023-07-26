@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { ProductHistoryService } from './product-history.service';
 import { CreateProductHistoryDto } from './dto/create-product-history.dto';
 import { UpdateProductHistoryDto } from './dto/update-product-history.dto';
+import { Roles } from 'src/decorators/roles/roles.decorator';
+import { Role } from 'src/user/role.enum';
 
 @Controller('product-history')
 export class ProductHistoryController {
@@ -12,9 +22,9 @@ export class ProductHistoryController {
     return this.productHistoryService.create(createProductHistoryDto);
   }
 
-  @Get()
-  findAll() {
-    return this.productHistoryService.findAll();
+  @Get(':id')
+  findAll(@Param('id') product_id: string) {
+    return this.productHistoryService.findAll(+product_id);
   }
 
   @Get(':id')
@@ -22,13 +32,17 @@ export class ProductHistoryController {
     return this.productHistoryService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductHistoryDto: UpdateProductHistoryDto) {
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateProductHistoryDto: UpdateProductHistoryDto,
+  ) {
     return this.productHistoryService.update(+id, updateProductHistoryDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(':product_id')
+  @Roles(Role.Admin)
+  remove(@Param('product_id') id: string) {
     return this.productHistoryService.remove(+id);
   }
 }

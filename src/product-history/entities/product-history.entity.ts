@@ -1,7 +1,9 @@
+import { ProductSupplier } from 'src/product-supplier/entities/product-supplier.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -25,6 +27,9 @@ export class ProductHistory {
   @CreateDateColumn()
   fechaDeInventario: Date;
 
-  @Column({ type: 'varchar', default: '' })
+  @Column()
   nombreSupplier: string;
+
+  @ManyToOne(() => ProductSupplier, (productSupplier) => productSupplier.id)
+  productSupplier: ProductSupplier;
 }

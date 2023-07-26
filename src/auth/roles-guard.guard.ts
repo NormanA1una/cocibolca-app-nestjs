@@ -7,7 +7,7 @@ import { Role } from 'src/user/role.enum';
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {
-    console.log('Roles Guard');
+    console.log('Role Guard');
   }
 
   canActivate(context: ExecutionContext): boolean {
@@ -17,13 +17,10 @@ export class RolesGuard implements CanActivate {
     ]);
 
     if (!requiredRoles) {
-      console.log('Retornara true');
       return true;
     }
 
     const { user } = context.switchToHttp().getRequest();
-
-    console.log(user);
 
     return requiredRoles.some((role) => user.rol?.includes(role));
   }

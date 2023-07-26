@@ -1,7 +1,10 @@
+import { ProductHistory } from '../../product-history/entities/product-history.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -27,4 +30,10 @@ export class ProductSupplier {
 
   @Column({ type: 'varchar', default: '' })
   nombreSupplier: string;
+
+  /* @OneToMany(
+    () => ProductHistory,
+    (productHistory) => productHistory.productSupplier,
+  )
+  productHistory: ProductHistory[]; */
 }
