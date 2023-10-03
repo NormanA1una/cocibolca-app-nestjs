@@ -16,4 +16,7 @@ export class Supplier {
 
   @Column({ type: 'varchar', default: '' })
   logo: string;
+
+  @Column({ type: 'varchar', default: '' })
+  nombreImage: string;
 }

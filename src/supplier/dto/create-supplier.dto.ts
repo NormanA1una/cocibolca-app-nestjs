@@ -12,4 +12,7 @@ export class CreateSupplierDto {
 
   @IsString()
   logo: string;
+
+  @IsString()
+  nombreImage: string;
 }

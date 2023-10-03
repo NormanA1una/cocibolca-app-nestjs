@@ -22,4 +22,7 @@ export class UpdateProductSupplierDto extends PartialType(
 
   @IsString()
   nombreSupplier: string;
+
+  @IsString()
+  nombreImage: string;
 }

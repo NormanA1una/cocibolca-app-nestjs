@@ -10,6 +10,7 @@ import {
 import { ProductSupplierService } from './product-supplier.service';
 import { CreateProductSupplierDto } from './dto/create-product-supplier.dto';
 import { UpdateProductSupplierDto } from './dto/update-product-supplier.dto';
+import { Public } from 'src/decorators/is-public/is-public.decorator';
 
 @Controller('product-supplier')
 export class ProductSupplierController {

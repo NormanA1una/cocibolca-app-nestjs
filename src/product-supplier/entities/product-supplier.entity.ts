@@ -31,6 +31,9 @@ export class ProductSupplier {
   @Column({ type: 'varchar', default: '' })
   nombreSupplier: string;
 
+  @Column({ type: 'varchar', default: '' })
+  nombreImage: string;
+
   /* @OneToMany(
     () => ProductHistory,
     (productHistory) => productHistory.productSupplier,

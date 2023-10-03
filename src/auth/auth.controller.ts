@@ -26,10 +26,12 @@ export class AuthController {
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
 
-  @UseGuards(AuthGuard)
+  /* @UseGuards(AuthGuard)
   @Get('profile')
   @Roles(Role.Admin)
   getProfile(@Request() req) {
+    console.log(req.user);
+
     return req.user;
-  }
+  } */
 }

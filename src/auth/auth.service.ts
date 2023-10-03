@@ -12,9 +12,6 @@ export class AuthService {
 
   async signIn(username: string, pass: string) {
     const user = await this.userService.findOne(username);
-    console.log('user pass:', user.password);
-    console.log('pass:', pass);
-    console.log('username:', username);
 
     const isMatch = await bcrypt.compare(pass, user.password);
 
@@ -29,8 +26,6 @@ export class AuthService {
       username: user.username,
       rol: [user.roles],
     };
-
-    console.log(user);
 
     return {
       ...payload,

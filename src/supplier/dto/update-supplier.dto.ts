@@ -14,4 +14,7 @@ export class UpdateSupplierDto extends PartialType(CreateSupplierDto) {
 
   @IsString()
   logo: string;
+
+  @IsString()
+  nombreImage?: string;
 }
