@@ -18,6 +18,8 @@ export class SupplierController {
 
   @Post()
   create(@Body() createSupplierDto: CreateSupplierDto) {
+    console.log('CONTROLLER', createSupplierDto);
+
     return this.supplierService.create(createSupplierDto);
   }
 

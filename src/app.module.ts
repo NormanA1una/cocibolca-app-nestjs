@@ -40,14 +40,14 @@ import { AuthGuard } from './auth/auth-guard.guard';
   providers: [
     AppService,
     DeleteFilesService,
-    {
+    /* {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
-    },
+    }, */
   ],
 })
 export class AppModule {

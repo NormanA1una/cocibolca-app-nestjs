@@ -19,6 +19,8 @@ export class SupplierService {
   dataSource = AppDataSource;
 
   create(createSupplierDto: CreateSupplierDto) {
+    console.log('SERVICE', createSupplierDto);
+
     return this.supplierRepository.save(createSupplierDto);
   }
 
@@ -54,6 +56,8 @@ export class SupplierService {
   }
 
   async remove(id: number) {
+    console.log('SUPPLIER ID', id);
+
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.startTransaction();
@@ -62,6 +66,8 @@ export class SupplierService {
       const supplier = await queryRunner.manager.findOne(Supplier, {
         where: { id: id },
       });
+      console.log('SUPPLIER', supplier);
+
       await queryRunner.manager.delete(Supplier, id),
         await this.deleteFileService.deleteFile(supplier.logo);
 
